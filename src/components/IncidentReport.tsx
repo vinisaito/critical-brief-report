@@ -65,13 +65,17 @@ export const IncidentReport = ({
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-7xl space-y-6 p-6 md:p-8 lg:p-12">
+        {/* Logo */}
+        {logo && (
+          <div className="flex justify-center mb-8">
+            <img src={logo} alt="Logo da Empresa" className="h-20 w-auto object-contain" />
+          </div>
+        )}
+
         {/* Header */}
         <div id="header" className="space-y-4">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div className="flex items-center gap-4">
-              {logo && (
-                <img src={logo} alt="Logo" className="h-16 w-auto object-contain" />
-              )}
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">

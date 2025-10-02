@@ -1,6 +1,4 @@
 import { IncidentReport } from "@/components/IncidentReport";
-import { ReportSidebar } from "@/components/ReportSidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
 
 const Index = () => {
   // Dados de exemplo do incidente
@@ -71,16 +69,7 @@ const Index = () => {
     ],
   };
 
-  return (
-    <SidebarProvider defaultOpen={true}>
-      <div className="flex min-h-screen w-full">
-        <ReportSidebar />
-        <main className="flex-1">
-          <IncidentReport {...incidentData} />
-        </main>
-      </div>
-    </SidebarProvider>
-  );
+  return <IncidentReport {...incidentData} logo="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=200&h=80&fit=crop" />;
 };
 
 export default Index;
