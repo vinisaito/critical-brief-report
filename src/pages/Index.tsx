@@ -1,4 +1,6 @@
 import { IncidentReport } from "@/components/IncidentReport";
+import { ReportSidebar } from "@/components/ReportSidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const Index = () => {
   // Dados de exemplo do incidente
@@ -7,6 +9,8 @@ const Index = () => {
     title: "Falha Crítica no Sistema de Pagamentos",
     date: "02 de Outubro de 2025 - 14:23",
     crisisRoom: "Sala Zeus - Andar 5",
+    operator: "João Silva",
+    crisisManager: "Maria Santos",
     status: "critical" as const,
     timeline: [
       {
@@ -67,7 +71,16 @@ const Index = () => {
     ],
   };
 
-  return <IncidentReport {...incidentData} />;
+  return (
+    <SidebarProvider defaultOpen={true}>
+      <div className="flex min-h-screen w-full">
+        <ReportSidebar />
+        <main className="flex-1">
+          <IncidentReport {...incidentData} />
+        </main>
+      </div>
+    </SidebarProvider>
+  );
 };
 
 export default Index;

@@ -23,9 +23,12 @@ interface IncidentReportProps {
   title: string;
   date: string;
   crisisRoom: string;
+  operator: string;
+  crisisManager: string;
   status: "critical" | "high" | "medium" | "low";
   timeline: TimelineItem[];
   rdms: RDM[];
+  logo?: string;
 }
 
 export const IncidentReport = ({
@@ -33,9 +36,12 @@ export const IncidentReport = ({
   title,
   date,
   crisisRoom,
+  operator,
+  crisisManager,
   status,
   timeline,
   rdms,
+  logo,
 }: IncidentReportProps) => {
   const getStatusColor = (status: string) => {
     const colors = {
@@ -57,23 +63,28 @@ export const IncidentReport = ({
   };
 
   return (
-    <div className="min-h-screen bg-background p-6 md:p-8 lg:p-12">
-      <div className="mx-auto max-w-7xl space-y-6">
+    <div className="min-h-screen bg-background">
+      <div className="mx-auto max-w-7xl space-y-6 p-6 md:p-8 lg:p-12">
         {/* Header */}
-        <div className="space-y-4">
+        <div id="header" className="space-y-4">
           <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div className="space-y-2">
-              <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-                  <AlertCircle className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Incidente #{number}
-                  </p>
-                  <h1 className="text-3xl font-bold tracking-tight text-foreground">
-                    {title}
-                  </h1>
+            <div className="flex items-center gap-4">
+              {logo && (
+                <img src={logo} alt="Logo" className="h-16 w-auto object-contain" />
+              )}
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+                    <AlertCircle className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">
+                      Incidente #{number}
+                    </p>
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground">
+                      {title}
+                    </h1>
+                  </div>
                 </div>
               </div>
             </div>
@@ -84,34 +95,58 @@ export const IncidentReport = ({
         </div>
 
         {/* Info Cards */}
-        <div className="grid gap-4 md:grid-cols-2">
-          <Card className="border-border shadow-md hover:shadow-lg transition-shadow">
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2 text-base font-semibold">
-                <Calendar className="h-4 w-4 text-primary" />
+        <div id="info" className="grid gap-3 md:grid-cols-4">
+          <Card className="border-border shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-sm font-semibold">
+                <Calendar className="h-3.5 w-3.5 text-primary" />
                 Data do Incidente
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold text-foreground">{date}</p>
+              <p className="text-lg font-bold text-foreground">{date}</p>
             </CardContent>
           </Card>
 
-          <Card className="border-border shadow-md hover:shadow-lg transition-shadow">
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2 text-base font-semibold">
-                <Users className="h-4 w-4 text-primary" />
+          <Card className="border-border shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-sm font-semibold">
+                <Users className="h-3.5 w-3.5 text-primary" />
                 Sala de Crise
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold text-foreground">{crisisRoom}</p>
+              <p className="text-lg font-bold text-foreground">{crisisRoom}</p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-sm font-semibold">
+                <Users className="h-3.5 w-3.5 text-primary" />
+                Operador
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-lg font-bold text-foreground">{operator}</p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-sm font-semibold">
+                <Users className="h-3.5 w-3.5 text-primary" />
+                Gestor de Crise
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-lg font-bold text-foreground">{crisisManager}</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Timeline */}
-        <Card className="border-border shadow-md">
+        <Card id="timeline" className="border-border shadow-md">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl font-bold">
               <Clock className="h-5 w-5 text-primary" />
@@ -135,7 +170,7 @@ export const IncidentReport = ({
         </Card>
 
         {/* RDMs */}
-        <Card className="border-border shadow-md">
+        <Card id="rdms" className="border-border shadow-md">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl font-bold">
               <GitBranch className="h-5 w-5 text-primary" />
